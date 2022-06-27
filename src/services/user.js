@@ -10,7 +10,20 @@ const create = async (newUser) => {
   return response.id;
 };
 
+const getAll = async () => {
+  const response = await User.findAll({ attributes: { exclude: ['password'] } });
+  return response;
+};
+
+const getById = async (id) => {
+  // if not existent, returns null
+  const response = await User.findOne({ attributes: { exclude: ['password'] }, where: { id } });
+  return response;
+};
+
 module.exports = {
   validateEmail,
   create,
+  getAll,
+  getById,
 };
