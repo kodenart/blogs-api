@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const validate = async (req, res, next) => {
+const validateUser = async (req, res, next) => {
   const {
     displayName,
     email,
@@ -24,4 +24,17 @@ const validate = async (req, res, next) => {
   next();
 };
 
-module.exports = validate;
+const validateCategories = (req, res, next) => {
+  const { name } = req.body;
+  const { error } = Joi.object({
+    name: Joi.string().required(),
+  }).validate({ name });
+
+  if (error) return next({ statusCode: 400, message: error.message });
+  return next();
+};
+
+module.exports = {
+  validateUser,
+  validateCategories,
+};
