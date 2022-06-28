@@ -33,7 +33,7 @@ const getById = async (req, res, next) => {
 
 const deleteMe = async (req, res, next) => {
   const { id } = req.user;
-  const user = UserServices.destroy(id);
+  const user = await UserServices.destroy(id);
   if (!user) return next({ statusCode: 404, message: 'Not Found' });
   return res.status(204).end();
 };

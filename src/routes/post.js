@@ -8,6 +8,7 @@ const route = express.Router();
 
 route.post('/', authValidation, validatePost, postController.create);
 route.get('/', authValidation, postController.getAll);
+route.get('/search', authValidation, postController.search);
 route.get('/:id', authValidation, postController.getById);
 route.put('/:id', authValidation, userValidation, postController.update);
 route.delete('/:id', authValidation, userValidation, postController.destroy);
