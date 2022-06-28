@@ -27,10 +27,16 @@ const getByEmail = async (email) => {
   return response;
 };
 
+const destroy = async (id) => {
+  const response = await User.destroy({ where: { id } });
+  return response;
+};
+
 module.exports = {
   validateEmail,
   create,
   getAll,
   getById,
   getByEmail,
+  destroy,
 };

@@ -31,8 +31,16 @@ const getById = async (req, res, next) => {
   return res.status(200).json(user);
 };
 
+const deleteMe = async (req, res, next) => {
+  const { id } = req.user;
+  const user = UserServices.destroy(id);
+  if (!user) return next({ statusCode: 404, message: 'Not Found' });
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  deleteMe,
 };
