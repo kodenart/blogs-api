@@ -21,9 +21,16 @@ const getById = async (id) => {
   return response;
 };
 
+const getByEmail = async (email) => {
+  // if not existent, returns null
+  const response = await User.findOne({ attributes: { exclude: ['password'] }, where: { email } });
+  return response;
+};
+
 module.exports = {
   validateEmail,
   create,
   getAll,
   getById,
+  getByEmail,
 };

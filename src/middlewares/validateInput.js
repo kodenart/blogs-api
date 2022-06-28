@@ -34,7 +34,28 @@ const validateCategories = (req, res, next) => {
   return next();
 };
 
+const validatePost = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  const { error } = Joi.object({
+    title: Joi
+      .string()
+      .required()
+      .messages({ 'string.empty': 'Some required fields are missing',
+    'any.only': 'Some required fields are missing' }),
+    content: Joi
+      .string()
+      .required()
+      .messages({ 'string.empty': 'Some required fields are missing',
+    'any.only': 'Some required fields are missing' }),
+    categoryIds: Joi.array().required(),
+  }).validate({ title, content, categoryIds });
+
+  if (error) return next({ statusCode: 400, message: error.message });
+  return next();
+};
+
 module.exports = {
   validateUser,
   validateCategories,
+  validatePost,
 };
