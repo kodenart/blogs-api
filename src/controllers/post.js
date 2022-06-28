@@ -38,9 +38,17 @@ const update = async (req, res, next) => {
   return res.status(200).json(post);
 };
 
+const destroy = async (req, res, next) => {
+  const { id } = req.params;
+  const post = await PostServices.destroy(id);
+  if (!post) return next({ statusCode: 404, message: 'Post does not exist' });
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  destroy,
 };
